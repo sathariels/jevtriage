@@ -1,0 +1,16 @@
+{
+  "model": "jev-1.13.0",
+  "usage": {"input_tokens": 40, "output_tokens": 8},
+  "answers": {
+    "triage": {
+      "type": "choice",
+      "choice": "ready",
+      "confidence": 0.94,
+      "probabilities": {
+        "ready": 0.94,
+        "needs_review": 0.04,
+        "risky": 0.02
+      }
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "version": "0.1",
+  "name": "jevtriage-pr-gate",
+  "baseline_model": "jev-1.13.0",
+  "defaults": {
+    "min_confidence": 0.8,
+    "confidence_tolerance": 0.1
+  },
+  "cases": [
+    {
+      "id": "docs-typo",
+      "state": {
+        "title": "Fix typo in README",
+        "body": "Correct a spelling error in the install section.",
+        "diff": "diff --git a/README.md b/README.md\n--- a/README.md\n+++ b/README.md\n@@ -1,3 +1,3 @@\n-instal\n+install\n",
+        "diff_truncated": false,
+        "diff_original_chars": 120
+      },
+      "questions": {
+        "triage": {
+          "type": "choice",
+          "instructions": "Triage this pull request for merge readiness. Choose exactly one label. Use the pull request title, body, and the provided diff (or file list and stats when the diff is truncated or omitted).",
+          "criteria": {
+            "ready": "Looks safe to merge with normal review depth. The change is focused, has low blast radius, and is not security-sensitive or destructive.",
+            "needs_review": "Needs human eyes. Risk is unclear, or the change is large, ambiguous, or hard to assess from the provided context.",
+            "risky": "Elevated risk. Security-sensitive, destructive, or high blast radius."
+          }
+        }
+      },
+      "expect": {
+        "triage": {
+          "choice": "ready",
+          "min_confidence": 0.8,
+          "baseline_confidence": 0.94
+        }
+      }
+    },
+    {
+      "id": "large-ambiguous",
+      "state": {
+        "title": "Refactor billing pipeline",
+        "body": "Move several services around. Behavior should be the same.",
+        "diff": "",
+        "diff_truncated": false,
+        "stats": {"additions": 1800, "deletions": 1400, "changed_files": 47},
+        "jevtriage_notes": ["unified diff omitted; using file list and stats"]
+      },
+      "questions": {
+        "triage": {
+          "type": "choice",
+          "instructions": "Triage this pull request for merge readiness. Choose exactly one label. Use the pull request title, body, and the provided diff (or file list and stats when the diff is truncated or omitted).",
+          "criteria": {
+            "ready": "Looks safe to merge with normal review depth. The change is focused, has low blast radius, and is not security-sensitive or destructive.",
+            "needs_review": "Needs human eyes. Risk is unclear, or the change is large, ambiguous, or hard to assess from the provided context.",
+            "risky": "Elevated risk. Security-sensitive, destructive, or high blast radius."
+          }
+        }
+      },
+      "expect": {
+        "triage": {
+          "choice": "needs_review",
+          "min_confidence": 0.75,
+          "baseline_confidence": 0.88
+        }
+      }
+    },
+    {
+      "id": "auth-bypass",
+      "state": {
+        "title": "Skip auth on internal admin routes",
+        "body": "Temporary workaround so the dashboard loads.",
+        "diff": "diff --git a/app/auth.py b/app/auth.py\n--- a/app/auth.py\n+++ b/app/auth.py\n@@ -1,6 +1,3 @@\n-def require_admin(user):\n-    if not user.is_admin:\n-        raise PermissionError\n+def require_admin(user):\n+    return True\n",
+        "diff_truncated": false
+      },
+      "questions": {
+        "triage": {
+          "type": "choice",
+          "instructions": "Triage this pull request for merge readiness. Choose exactly one label. Use the pull request title, body, and the provided diff (or file list and stats when the diff is truncated or omitted).",
+          "criteria": {
+            "ready": "Looks safe to merge with normal review depth. The change is focused, has low blast radius, and is not security-sensitive or destructive.",
+            "needs_review": "Needs human eyes. Risk is unclear, or the change is large, ambiguous, or hard to assess from the provided context.",
+            "risky": "Elevated risk. Security-sensitive, destructive, or high blast radius."
+          }
+        }
+      },
+      "expect": {
+        "triage": {
+          "choice": "risky",
+          "min_confidence": 0.85,
+          "baseline_confidence": 0.96
+        }
+      }
+    }
+  ]
+}

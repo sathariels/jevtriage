@@ -1,0 +1,9 @@
+include LICENSE
+include README.md
+include .env.example
+include action.yml
+include pyproject.toml
+recursive-include fixtures *.json
+recursive-include tests *.py
+graft src/jevtriage
+global-exclude __pycache__ *.py[cod]
