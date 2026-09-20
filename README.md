@@ -48,7 +48,7 @@ jobs:
   triage:
     runs-on: ubuntu-latest
     steps:
-      - uses: sathariels/jevtriage@v0.1.0   # pin a tag or commit SHA once cut; @main until then
+      - uses: sathariels/jevtriage@v0.1.0
         id: triage
         env:
           TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
@@ -58,7 +58,7 @@ jobs:
       - run: echo "${{ steps.triage.outputs.verdict }} ${{ steps.triage.outputs.confidence }}"
 ```
 
-Until a `v0.1.0` tag exists, use `sathariels/jevtriage@main` (or this PR’s SHA). The step **fails** on exit 1 or 2 — that is the gate. Use `continue-on-error: true` only if you want labels/comments after a non-ready verdict.
+Prefer `sathariels/jevtriage@v0.1.0`. Use `@main` only if you want unreleased tip-of-tree. The step **fails** on exit 1 or 2 — that is the gate. Use `continue-on-error: true` only if you want labels/comments after a non-ready verdict.
 
 This repository’s [example workflow](.github/workflows/example-pr-triage.yml) runs the same Action with `answers: fixtures/replay-single-ready.json` so default CI never calls TypeSafe.
 
