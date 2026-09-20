@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jevtriage"
+version = "0.1.0"
+description = "Triage GitHub PRs with TypeSafe Jev — ready / needs_review / risky, with a confidence gate"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+authors = [{ name = "Nithilan Kumaran" }]
+keywords = ["jev", "typesafe", "github-action", "pr", "triage"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Typing :: Typed",
+]
+dependencies = [
+    "typesafe-sdk>=0.7.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+jevtriage = "jevtriage.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/sathariels/jevtriage"
+Documentation = "https://github.com/sathariels/jevtriage"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+jevtriage = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+pythonpath = ["src", "."]

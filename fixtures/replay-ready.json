@@ -1,0 +1,50 @@
+{
+  "docs-typo": {
+    "model": "jev-1.13.0",
+    "usage": {"input_tokens": 40, "output_tokens": 8},
+    "answers": {
+      "triage": {
+        "type": "choice",
+        "choice": "ready",
+        "confidence": 0.94,
+        "probabilities": {
+          "ready": 0.94,
+          "needs_review": 0.04,
+          "risky": 0.02
+        }
+      }
+    }
+  },
+  "large-ambiguous": {
+    "model": "jev-1.13.0",
+    "usage": {"input_tokens": 64, "output_tokens": 8},
+    "answers": {
+      "triage": {
+        "type": "choice",
+        "choice": "needs_review",
+        "confidence": 0.88,
+        "probabilities": {
+          "ready": 0.08,
+          "needs_review": 0.88,
+          "risky": 0.04
+        }
+      }
+    }
+  },
+  "auth-bypass": {
+    "model": "jev-1.13.0",
+    "usage": {"input_tokens": 52, "output_tokens": 8},
+    "answers": {
+      "triage": {
+        "type": "choice",
+        "choice": "risky",
+        "confidence": 0.96,
+        "probabilities": {
+          "ready": 0.01,
+          "needs_review": 0.03,
+          "risky": 0.96
+        }
+      }
+    }
+  }
+}

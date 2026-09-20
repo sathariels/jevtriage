@@ -1,0 +1,44 @@
+# Example: drop-in PR triage gate.
+#
+# This repository's default run uses a recorded fixture (--answers) so CI
+# never calls TypeSafe. Copy the "Live usage" block from the README into
+# your repo, set the TYPESAFE_API_KEY secret, and pin a catalog model.
+name: example-pr-triage
+
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      pull-request:
+        description: Pull request number (optional; used only for live fetches)
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      # Fixture path for this repo (no TYPESAFE_API_KEY). Exit 0 = ready.
+      - uses: ./
+        id: triage
+        with:
+          model: jev-1.13.0
+          answers: fixtures/replay-single-ready.json
+          title: "Fix typo in README"
+          body: "Correct a spelling error in the install section."
+          apply-labels: "false"
+
+      - name: Show action outputs
+        run: |
+          echo "verdict=${{ steps.triage.outputs.verdict }}"
+          echo "confidence=${{ steps.triage.outputs.confidence }}"
+          echo "model=${{ steps.triage.outputs.model }}"
