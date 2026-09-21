@@ -25,12 +25,14 @@ Pair with [`jevcheck`](https://github.com/sathariels/jevcheck) contracts if you 
 ## Install
 
 ```bash
-pip install -e ".[dev]"
+pip install jevtriage
+# tests (clone extras):
+pip install "jevtriage[dev]"
 export TYPESAFE_API_KEY=...          # live Jev only; never commit this
 export TYPESAFE_DEFAULT_MODEL=jev-1.13.0
 ```
 
-Auth is **`TYPESAFE_API_KEY` only** (`typesafe-sdk`). Unit tests mock the client. This repo does not publish to PyPI in v0.1; the Action installs the checked-out tree.
+Auth is **`TYPESAFE_API_KEY` only** (`typesafe-sdk`). Unit tests mock the client. [`jevtriage` 0.1.0](https://pypi.org/project/jevtriage/0.1.0/) is on PyPI. The Action installs that pin (`jevtriage==0.1.0`); keep the Action tag in sync, or fall back to `pip install "${{ github.action_path }}"` for a local checkout.
 
 ## GitHub Action
 
